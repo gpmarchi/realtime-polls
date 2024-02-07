@@ -13,5 +13,17 @@ model Poll {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @map("updated_at")
 
+  options PollOption[]
+
   @@map("polls")
+}
+
+model PollOption {
+  id     String @id @default(uuid())
+  title  String
+  pollId String @map("poll_id")
+
+  poll Poll @relation(fields: [pollId], references: [id])
+
+  @@map("poll_options")
 }
